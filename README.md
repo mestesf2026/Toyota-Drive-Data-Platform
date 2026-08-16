@@ -2,78 +2,71 @@
 
 ## Project Overview
 
-ToyotaDrive is a browser-based data engineering and analytics project for a fictional automotive dealership that sells, repairs, and maintains vehicles.
+ToyotaDrive is an end-to-end data engineering and analytics project designed to transform automotive sales data into a PostgreSQL data warehouse and business intelligence dashboard.
 
-The project demonstrates a complete modern data pipeline:
+The project demonstrates a complete analytics workflow:
 
-**Data Sources → Data Lake → Data Transformation → Data Warehouse → SQL Analytics → Dashboard → Business Decisions**
+**Raw Data → Data Cleaning → Transformation → PostgreSQL Warehouse → SQL Analytics → Validation → Dashboard**
 
-The entire project can be developed using Google Colab, GitHub, Python, SQL, and a cloud PostgreSQL database.
-
----
-
-## Business Problem
-
-An automotive dealership generates data from multiple sources including:
-
-- Vehicle sales
-- Vehicle information
-- Repair and maintenance services
-- Dealer information
-- Economic indicators
-
-The business needs to combine these sources into one analytical platform.
-
-Management wants to answer questions such as:
-
-- How many vehicles are being sold?
-- What is total sales revenue?
-- What are the best-performing vehicle models?
-- What is the average vehicle selling price?
-- How many repairs are performed?
-- How much repair revenue is generated?
-- How does sales performance change over time?
-- How can economic conditions affect business performance?
+The platform analyzes automotive sales, vehicle information, pricing, mileage, sales trends, and data quality.
 
 ---
 
-## Project Architecture
+## Business Objective
+
+The objective of the ToyotaDrive platform is to provide decision-makers with reliable automotive sales insights.
+
+The analytics platform answers questions such as:
+
+- How many vehicles were sold?
+- What was the total sales revenue?
+- What was the average selling price?
+- Which vehicle manufacturers generated the most sales?
+- Which vehicle models were most popular?
+- How did sales change over time?
+- Which price ranges generated the most sales?
+- How does mileage affect selling price?
+- How complete is the vehicle data?
+
+---
+
+# Architecture
 
 ```text
-                 DATA SOURCES
-                      |
-       +--------------+--------------+
-       |              |              |
-     Sales          Repairs       Vehicles
-       |              |              |
-       +--------------+--------------+
-                      |
-                      v
-                 DATA LAKE
-                      |
-                      v
-              PYTHON / PANDAS
-                      |
-                      v
-             PROCESSED DATA
-                      |
-                      v
-              NEON POSTGRESQL
-                      |
-                      v
-              DATA WAREHOUSE
-                      |
-          +-----------+-----------+
-          |                       |
-     FACT TABLES            DIMENSIONS
-          |                       |
-          +-----------+-----------+
-                      |
-                      v
-                 SQL ANALYTICS
-                      |
-                      v
-              PLOTLY DASHBOARD
-                      |
-                      v
-              BUSINESS DECISIONS
+                    RAW AUTOMOTIVE DATA
+                            |
+                            v
+                  +-------------------+
+                  | Data Preparation  |
+                  | & Cleaning        |
+                  +-------------------+
+                            |
+                            v
+                  +-------------------+
+                  | Transformation    |
+                  | & Data Validation |
+                  +-------------------+
+                            |
+                            v
+                  +-------------------+
+                  | PostgreSQL / Neon |
+                  | Data Warehouse    |
+                  +-------------------+
+                            |
+             +--------------+--------------+
+             |                             |
+             v                             v
+      SQL Analytics                 Validation Tests
+             |                             |
+             +--------------+--------------+
+                            |
+                            v
+                  +-------------------+
+                  | Dashboard Dataset |
+                  +-------------------+
+                            |
+                            v
+                  +-------------------+
+                  | Analytics         |
+                  | Dashboard         |
+                  +-------------------+
