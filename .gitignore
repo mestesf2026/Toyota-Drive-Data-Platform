@@ -1,34 +1,94 @@
+# ============================================================
 # Python
+# ============================================================
+
 __pycache__/
 *.py[cod]
-*.pyo
-*.pyd
+*$py.class
+*.so
 
-# Jupyter
-.ipynb_checkpoints/
+# ============================================================
+# Virtual environments
+# ============================================================
 
-# Environment variables and secrets
+.venv/
+venv/
+env/
+ENV/
+
+# ============================================================
+# Environment variables / secrets
+# ============================================================
+
 .env
 .env.*
 !.env.example
 
-# Google Colab
-*.json
+*.pem
+*.key
+credentials.json
+secrets.json
+service-account.json
+token.json
 
-# Raw and processed data
-data/raw/*
-data/processed/*
-!data/raw/.gitkeep
-!data/processed/.gitkeep
+# ============================================================
+# Jupyter / Google Colab
+# ============================================================
 
+.ipynb_checkpoints/
+
+# ============================================================
+# IDE files
+# ============================================================
+
+.vscode/
+.idea/
+
+# ============================================================
+# OS files
+# ============================================================
+
+.DS_Store
+Thumbs.db
+
+# ============================================================
+# Logs
+# ============================================================
+
+*.log
+
+# ============================================================
+# Temporary files
+# ============================================================
+
+*.tmp
+*.temp
+
+# ============================================================
 # Local database files
+# ============================================================
+
 *.db
 *.sqlite
 *.sqlite3
 
-# Logs
-*.log
+# ============================================================
+# Raw / large data files
+# ============================================================
 
-# OS files
-.DS_Store
-Thumbs.db
+data/raw/*.csv
+data/raw/*.CSV
+data/raw/*.parquet
+data/raw/*.PARQUET
+
+# Keep directory structure
+!data/raw/.gitkeep
+
+# Processed data
+data/processed/*.csv
+data/processed/*.CSV
+data/processed/*.parquet
+data/processed/*.PARQUET
+
+# Keep directory structure
+!data/processed/.gitkeep
