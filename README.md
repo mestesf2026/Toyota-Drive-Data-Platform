@@ -1,50 +1,79 @@
-# ToyotaDrive Motors — End-to-End Data Engineering Project
+# ToyotaDrive Data Engineering & Analytics Platform
 
 ## Project Overview
 
-ToyotaDrive Motors is a fictional automotive dealership that sells new and used cars and provides repair and maintenance services.
+ToyotaDrive is a browser-based data engineering and analytics project for a fictional automotive dealership that sells, repairs, and maintains vehicles.
 
-The goal of this project is to build an end-to-end data engineering and analytics platform that collects data from **5 different sources**, stores the raw data in a **Data Lake**, transforms the data using **Python**, loads the cleaned data into a **PostgreSQL Data Warehouse**, and provides business insights through a **BI dashboard**.
+The project demonstrates a complete modern data pipeline:
 
-The project demonstrates how raw data can be transformed into useful information for business decision-making.
+**Data Sources → Data Lake → Data Transformation → Data Warehouse → SQL Analytics → Dashboard → Business Decisions**
+
+The entire project can be developed using Google Colab, GitHub, Python, SQL, and a cloud PostgreSQL database.
+
+---
+
+## Business Problem
+
+An automotive dealership generates data from multiple sources including:
+
+- Vehicle sales
+- Vehicle information
+- Repair and maintenance services
+- Dealer information
+- Economic indicators
+
+The business needs to combine these sources into one analytical platform.
+
+Management wants to answer questions such as:
+
+- How many vehicles are being sold?
+- What is total sales revenue?
+- What are the best-performing vehicle models?
+- What is the average vehicle selling price?
+- How many repairs are performed?
+- How much repair revenue is generated?
+- How does sales performance change over time?
+- How can economic conditions affect business performance?
 
 ---
 
 ## Project Architecture
 
 ```text
-                 5 DATA SOURCES
+                 DATA SOURCES
                       |
        +--------------+--------------+
-       |       |      |      |       |
-       v       v      v      v       v
-     Sales  Repairs  Vehicle Dealer Economic
-      Data    Data     API    Data    Data
-       |       |       |       |       |
-       +-------+-------+-------+-------+
-                       |
-                       v
-                DATA LAKE - BRONZE
-                  Raw CSV / JSON
-                       |
-                       v
-              PYTHON TRANSFORMATION
-                       |
-                       v
-                DATA LAKE - SILVER
-                 Clean Parquet Data
-                       |
-                       v
-              POSTGRESQL DATA WAREHOUSE
-                       |
-                       v
-                   STAR SCHEMA
-                       |
-                       v
-                   SQL ANALYTICS
-                       |
-                       v
-                POWER BI DASHBOARD
-                       |
-                       v
-               BUSINESS DECISIONS
+       |              |              |
+     Sales          Repairs       Vehicles
+       |              |              |
+       +--------------+--------------+
+                      |
+                      v
+                 DATA LAKE
+                      |
+                      v
+              PYTHON / PANDAS
+                      |
+                      v
+             PROCESSED DATA
+                      |
+                      v
+              NEON POSTGRESQL
+                      |
+                      v
+              DATA WAREHOUSE
+                      |
+          +-----------+-----------+
+          |                       |
+     FACT TABLES            DIMENSIONS
+          |                       |
+          +-----------+-----------+
+                      |
+                      v
+                 SQL ANALYTICS
+                      |
+                      v
+              PLOTLY DASHBOARD
+                      |
+                      v
+              BUSINESS DECISIONS
