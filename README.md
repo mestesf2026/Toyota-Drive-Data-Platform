@@ -1,72 +1,89 @@
 # ToyotaDrive Data Engineering & Analytics Platform
 
+An end-to-end data engineering and analytics project that transforms
+automotive sales data into a validated PostgreSQL data warehouse and
+business intelligence dashboard.
+
+The project demonstrates the complete workflow:
+
+**Raw Data → Cleaning → Transformation → Warehouse → Validation → SQL Analytics → Dashboard**
+
+---
+
 ## Project Overview
 
-ToyotaDrive is an end-to-end data engineering and analytics project designed to transform automotive sales data into a PostgreSQL data warehouse and business intelligence dashboard.
+ToyotaDrive analyzes automotive sales data to provide business insights
+into sales performance, vehicle demand, pricing, mileage, sales trends,
+and data quality.
 
-The project demonstrates a complete analytics workflow:
+The platform was designed as a portfolio data engineering project with
+an emphasis on:
 
-**Raw Data → Data Cleaning → Transformation → PostgreSQL Warehouse → SQL Analytics → Validation → Dashboard**
-
-The platform analyzes automotive sales, vehicle information, pricing, mileage, sales trends, and data quality.
+- Data cleaning and preparation
+- ETL pipeline development
+- Dimensional data modeling
+- PostgreSQL data warehousing
+- Foreign-key validation
+- Analytical SQL
+- Dashboard dataset creation
+- Business intelligence visualization
+- Data-quality testing
 
 ---
 
 ## Business Objective
 
-The objective of the ToyotaDrive platform is to provide decision-makers with reliable automotive sales insights.
-
-The analytics platform answers questions such as:
+The ToyotaDrive analytics platform answers questions such as:
 
 - How many vehicles were sold?
-- What was the total sales revenue?
+- What was total sales revenue?
 - What was the average selling price?
-- Which vehicle manufacturers generated the most sales?
-- Which vehicle models were most popular?
+- Which vehicle makes generated the most sales?
+- Which vehicle models were most frequently sold?
 - How did sales change over time?
-- Which price ranges generated the most sales?
-- How does mileage affect selling price?
-- How complete is the vehicle data?
+- Which price ranges generated the most revenue?
+- How does mileage relate to selling price?
+- How complete are the vehicle descriptions?
+- Are warehouse relationships and foreign keys valid?
 
 ---
 
 # Architecture
 
 ```text
-                    RAW AUTOMOTIVE DATA
-                            |
-                            v
-                  +-------------------+
-                  | Data Preparation  |
-                  | & Cleaning        |
-                  +-------------------+
-                            |
-                            v
-                  +-------------------+
-                  | Transformation    |
-                  | & Data Validation |
-                  +-------------------+
-                            |
-                            v
-                  +-------------------+
-                  | PostgreSQL / Neon |
-                  | Data Warehouse    |
-                  +-------------------+
-                            |
-             +--------------+--------------+
-             |                             |
-             v                             v
-      SQL Analytics                 Validation Tests
-             |                             |
-             +--------------+--------------+
-                            |
-                            v
-                  +-------------------+
-                  | Dashboard Dataset |
-                  +-------------------+
-                            |
-                            v
-                  +-------------------+
-                  | Analytics         |
-                  | Dashboard         |
-                  +-------------------+
+                         RAW AUTOMOTIVE DATA
+                                  |
+                                  v
+                       +---------------------+
+                       | Data Ingestion &    |
+                       | Data Preparation    |
+                       +---------------------+
+                                  |
+                                  v
+                       +---------------------+
+                       | Cleaning &          |
+                       | Transformation      |
+                       +---------------------+
+                                  |
+                                  v
+                       +---------------------+
+                       | Neon PostgreSQL     |
+                       | Data Warehouse      |
+                       +---------------------+
+                                  |
+                    +-------------+-------------+
+                    |                           |
+                    v                           v
+             SQL Analytics              Warehouse Validation
+                    |                           |
+                    +-------------+-------------+
+                                  |
+                                  v
+                       +---------------------+
+                       | Dashboard Datasets  |
+                       +---------------------+
+                                  |
+                                  v
+                       +---------------------+
+                       | Business Dashboard  |
+                       +---------------------+
