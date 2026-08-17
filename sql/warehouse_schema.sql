@@ -1,5 +1,6 @@
 -- ============================================================
 -- ToyotaDrive Data Warehouse Schema
+-- Matches the validated Neon PostgreSQL warehouse
 -- ============================================================
 
 -- ============================================================
@@ -10,8 +11,10 @@ CREATE TABLE IF NOT EXISTS dim_dealer (
     dealer_key SERIAL PRIMARY KEY,
     dealer_id VARCHAR(100),
     dealer_name VARCHAR(255),
-    dealer_city VARCHAR(100),
-    dealer_state VARCHAR(100)
+    city VARCHAR(100),
+    state VARCHAR(100),
+    country VARCHAR(100),
+    service_department BOOLEAN
 );
 
 
@@ -21,13 +24,11 @@ CREATE TABLE IF NOT EXISTS dim_dealer (
 
 CREATE TABLE IF NOT EXISTS dim_vehicle (
     vehicle_key SERIAL PRIMARY KEY,
-    vin VARCHAR(50),
+    vehicle_id VARCHAR(100),
     make VARCHAR(100),
-    model VARCHAR(100),
-    body VARCHAR(100),
-    transmission VARCHAR(50),
-    color VARCHAR(100),
-    interior VARCHAR(100)
+    model VARCHAR(255),
+    model_year INTEGER,
+    vehicle_type VARCHAR(100)
 );
 
 
@@ -42,8 +43,7 @@ CREATE TABLE IF NOT EXISTS dim_date (
     quarter INTEGER,
     month INTEGER,
     month_name VARCHAR(20),
-    day INTEGER,
-    day_name VARCHAR(20)
+    day INTEGER
 );
 
 
@@ -63,26 +63,24 @@ CREATE TABLE IF NOT EXISTS dim_economic (
 -- ============================================================
 
 CREATE TABLE IF NOT EXISTS fact_sales (
-    sales_key BIGSERIAL PRIMARY KEY,
-    date_key INTEGER,
-    vehicle_key INTEGER,
+    sales_key SERIAL PRIMARY KEY,
     dealer_key INTEGER,
+    vehicle_key INTEGER,
+    date_key INTEGER,
     selling_price NUMERIC(12,2),
-    mmr NUMERIC(12,2),
-    odometer NUMERIC(12,2),
-    condition NUMERIC(8,2),
+    odometer INTEGER,
 
-    CONSTRAINT fk_sales_date
-        FOREIGN KEY (date_key)
-        REFERENCES dim_date(date_key),
+    CONSTRAINT fact_sales_dealer_key_fkey
+        FOREIGN KEY (dealer_key)
+        REFERENCES dim_dealer(dealer_key),
 
-    CONSTRAINT fk_sales_vehicle
+    CONSTRAINT fact_sales_vehicle_key_fkey
         FOREIGN KEY (vehicle_key)
         REFERENCES dim_vehicle(vehicle_key),
 
-    CONSTRAINT fk_sales_dealer
-        FOREIGN KEY (dealer_key)
-        REFERENCES dim_dealer(dealer_key)
+    CONSTRAINT fact_sales_date_key_fkey
+        FOREIGN KEY (date_key)
+        REFERENCES dim_date(date_key)
 );
 
 
@@ -91,17 +89,18 @@ CREATE TABLE IF NOT EXISTS fact_sales (
 -- ============================================================
 
 CREATE TABLE IF NOT EXISTS fact_repairs (
-    repair_key BIGSERIAL PRIMARY KEY,
-    repair_date DATE,
+    repair_key SERIAL PRIMARY KEY,
     dealer_key INTEGER,
     vehicle_key INTEGER,
+    repair_date DATE,
     repair_cost NUMERIC(12,2),
+    mileage INTEGER,
 
-    CONSTRAINT fk_repairs_dealer
+    CONSTRAINT fact_repairs_dealer_key_fkey
         FOREIGN KEY (dealer_key)
         REFERENCES dim_dealer(dealer_key),
 
-    CONSTRAINT fk_repairs_vehicle
+    CONSTRAINT fact_repairs_vehicle_key_fkey
         FOREIGN KEY (vehicle_key)
         REFERENCES dim_vehicle(vehicle_key)
 );
