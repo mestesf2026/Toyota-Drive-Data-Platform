@@ -19,9 +19,9 @@ and data quality.
 The platform was designed as a portfolio data engineering project with
 an emphasis on:
 
-- Data cleaning and preparation
-- ETL pipeline development
-- Dimensional data modeling
+- Data cleaning and preparation/python
+- ETL pipeline development/python
+- Dimensional data modeling/python
 - PostgreSQL data warehousing
 - Foreign-key validation
 - Analytical SQL
